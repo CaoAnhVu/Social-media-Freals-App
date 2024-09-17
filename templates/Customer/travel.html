@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Freal Event</title>
+    <!-- Bootstrap -->
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <link href="../../static/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../static/css/swiper-bundle.min.css" />
+
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../static/vendor/font-awesome/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="../../static/vendor/font-awesome/css/vendor.bundle.base.css" />
+
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../static/js/jquery.dataTables.min.js" />
+    <link rel="stylesheet" href="../../static/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/Assets/css/toastr.min.css" />
+    <script src="../../static/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/HomeFreal.main.css" />
+    <!-- End layout styles -->
+    <script src="https://kit.fontawesome.com/99cbdec5b3.js" crossorigin="anonymous"></script>
+    <!-- shortcut -->
+    <link rel="shortcut icon" href="../../static/images/logo.png" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo">
+        <img src="../../static/images/logo.png" alt="Freal Logo" />
+        <span>Freal</span>
+      </div>
+      <div class="search-bar">
+        <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <input type="text" placeholder="Explore Freal..." />
+      </div>
+      <div class="navigation">
+        <ul>
+          <li>
+            <a href="HomeFreal.html"><i class="fa-solid fa-house"></i>Home</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-regular fa-bookmark"></i>Storage</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-blog"></i>Blog</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-calendar-days"></i>Freal events <span class="new-listing">4 new </span></a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-regular fa-newspaper"></i>News feed <span class="new-listing">4 new </span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="post-comment__line"></div>
+      <div class="upcoming-event">
+        <span>Upcoming event <strong class="new-event">12</strong></span>
+      </div>
+      <div class="event-navigation">
+        <ul>
+          <li>
+            <a href="#">
+              <div class="event-date">20<br />Dec</div>
+              <div class="event-details">
+                <span class="event-name">Picnic</span>
+                <span class="new-work">78k interested · 7.7k going</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="event-date">28<br />Jan</div>
+              <div class="event-details">
+                <span class="event-name">Explorative</span>
+                <span class="new-work">31k interested · 7.7k going</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="event-date">12<br />Feb</div>
+              <div class="event-details">
+                <span class="event-name">Climbing</span>
+                <span class="new-work">19k interested · 5.7k going</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="event-date">18<br />Mar</div>
+              <div class="event-details">
+                <span class="event-name">Cycling</span>
+                <span class="new-work">28k interested · 1.7k going</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-container">
+      <header class="navbar">
+        <div class="navbar-left">
+          <ul>
+            <li>
+              <a href="HomeFreal.html"><i href="HomeFreal.html" class="fa-solid fa-house"></i> Home</a>
+            </li>
+          </ul>
+          <!-- <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button> -->
+        </div>
+        <div class="navbar-center">
+          <ul>
+            <li><a href="#">Explore</a></li>
+            <li><a href="#">Community feed</a></li>
+            <li>
+              <a href="#">Mutual friend <span></span></a>
+            </li>
+          </ul>
+        </div>
+        <div class="navbar-right">
+          <ul>
+            <li>
+              <a class="navbar-right__item" href="#"><i class="fa-solid fa-comment-dots"></i></a>
+            </li>
+            <li>
+              <a class="navbar-right__item" href="#"><i class="fa-solid fa-bell"></i></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="profile-link">
+                <span>AndyVu Coder</span>
+                <img src="../../static/images/avata/avata1.jpg" alt="Profile" />
+                <i class="fa-solid fa-circle-chevron-down"></i>
+              </a>
+              <ul class="dropdown-list__menu">
+                <li><a href="register.html">Log out</a></li>
+                <li><a href="login.html">Add account</a></li>
+                <li><a href="#">Setting account</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </header>
+
+      <!-- ---------------- -->
+      <!-- Event container -->
+      <!-- --------------- -->
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="section-title">Hotels</h2>
+            <ul class="nav nav-tabs" id="hotelTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="most-popular-tab" data-toggle="tab" href="#most-popular" role="tab" aria-controls="most-popular" aria-selected="true">Most Popular</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" id="best-price-tab" data-toggle="tab" href="#best-price" role="tab" aria-controls="best-price" aria-selected="false">Best Price</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" id="near-me-tab" data-toggle="tab" href="#near-me" role="tab" aria-controls="near-me" aria-selected="false">Near Me</a>
+              </li>
+              <li class="nav-item ml-auto" role="presentation">
+                <a class="nav-link see-all" href="#">See all</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="hotelTabContent">
+              <!-- Most-Popular -->
+              <div class="tab-pane fade show active" id="most-popular" role="tabpanel" aria-labelledby="most-popular-tab">
+                <div class="card-deck">
+                  <div class="card">
+                    <img src="../../static/images/travel/travel1.avif" class="card-img-top" alt="The Base Casuiline, Iceland" />
+                    <div class="card-body">
+                      <h5 class="card-title">The Base Casuiline, Iceland</h5>
+                      <p class="card-text">
+                        <span>3-5 Days</span><span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <img src="../../static/images/travel/travel2.avif" class="card-img-top" alt="Jhon Mugal Agrabad Mahal" />
+                    <div class="card-body">
+                      <h5 class="card-title">Jhon Mugal Agrabad Mahal</h5>
+                      <p class="card-text">
+                        <span>5-7 Days</span><span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <img src="../../static/images/travel/travel3.avif" class="card-img-top" alt="Haliboin Jamaika Paradise" />
+                    <div class="card-body">
+                      <h5 class="card-title">Haliboin Jamaika Paradise</h5>
+                      <p class="card-text">
+                        <span>2-4 Days</span><span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Best-Price -->
+              <div class="tab-pane fade" id="best-price" role="tabpanel" aria-labelledby="best-price-tab">
+                <div class="card-deck">
+                  <div class="card">
+                    <img src="../../static/images/travel/travel4.avif" class="card-img-top" alt="Hotel Luxury, Maldives" />
+                    <div class="card-body">
+                      <h5 class="card-title">Hotel Luxury, Maldives</h5>
+                      <p class="card-text">
+                        <span>3-5 Days</span><span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <img src="../../static/images/travel/travel5.avif" class="card-img-top" alt="Cottage Paradise, Bali" />
+                    <div class="card-body">
+                      <h5 class="card-title">Cottage Paradise, Bali</h5>
+                      <p class="card-text">
+                        <span>5-7 Days</span><span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <img src="../../static/images/travel/travel6.avif" class="card-img-top" alt="Palm Grove, Australia" />
+                    <div class="card-body">
+                      <h5 class="card-title">Palm Grove, Australia</h5>
+                      <p class="card-text">
+                        <span>2-4 Days</span><span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Near-Me -->
+              <div class="tab-pane fade" id="near-me" role="tabpanel" aria-labelledby="near-me-tab">
+                <div class="card-deck">
+                  <div class="card">
+                    <img src="../../static/images/travel/travel7.avif" class="card-img-top" alt="Hilltop Cabin, Norway" />
+                    <div class="card-body">
+                      <h5 class="card-title">Hilltop Cabin, Norway</h5>
+                      <p class="card-text">
+                        <span>3-5 Days</span><span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <img src="../../static/images/travel/travel8.avif" class="card-img-top" alt="Cityview Inn, Tokyo" />
+                    <div class="card-body">
+                      <h5 class="card-title">Cityview Inn, Tokyo</h5>
+                      <p class="card-text">
+                        <span>5-7 Days</span><span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <img src="../../static/images/travel/travel9.avif" class="card-img-top" alt="Beachfront Bungalow, Thailand" />
+                    <div class="card-body">
+                      <h5 class="card-title">Beachfront Bungalow, Thailand</h5>
+                      <p class="card-text">
+                        <span>2-4 Days</span><span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-md-6">
+                <div class="calendar">
+                  <div class="month-selector">
+                    <h3 class="section-title">Available Dates</h3>
+                    <select class="custom-select" id="month-year"></select>
+                  </div>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Add the dates in the table rows -->
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td>4</td>
+                        <td>5</td>
+                        <td class="selected">6</td>
+                        <td class="selected-row">7</td>
+                        <td class="selected-row">8</td>
+                        <td class="selected-row">9</td>
+                        <td class="selected-row">10</td>
+                      </tr>
+                      <tr>
+                        <td class="selected-row">11</td>
+                        <td class="selected-row">12</td>
+                        <td class="selected-row">13</td>
+                        <td class="selected-row">14</td>
+                        <td class="selected-row">15</td>
+                        <td class="selected-row">16</td>
+                        <td class="selected-row">17</td>
+                      </tr>
+                      <tr>
+                        <td class="selected-row">18</td>
+                        <td class="selected">19</td>
+                        <td>20</td>
+                        <td>21</td>
+                        <td>22</td>
+                        <td>23</td>
+                        <td>24</td>
+                      </tr>
+                      <tr>
+                        <td>25</td>
+                        <td>26</td>
+                        <td>27</td>
+                        <td>28</td>
+                        <td>29</td>
+                        <td>30</td>
+                        <td>31</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="best-resorts">
+                  <h3 class="section-title">Best Resorts</h3>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center mb-5">
+                      <div class="resort-details">
+                        <div class="resort-details__image">
+                          <img src="../../static/images/travel/travel9.avif" alt="Resort image" />
+                        </div>
+                        <div class="resort-info">
+                          <span class="resort-name">Heritage Resort</span>
+                          <span class="resort-location">Italia</span>
+                        </div>
+                      </div>
+                      <span class="badge badge-primary badge-pill">$120/day</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center mb-5">
+                      <div class="resort-details">
+                        <div class="resort-details__image">
+                          <img src="../../static/images/travel/travel2.avif" alt="Resort image" />
+                        </div>
+                        <div class="resort-info">
+                          <span class="resort-name">Royel Hills Resort</span>
+                          <span class="resort-location">Thailand</span>
+                        </div>
+                      </div>
+                      <span class="badge badge-primary badge-pill">$115/day</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center mb-5">
+                      <div class="resort-details">
+                        <div class="resort-details__image">
+                          <img src="../../static/images/travel/travel7.avif" alt="Resort image" />
+                        </div>
+                        <div class="resort-info">
+                          <span class="resort-name">Greenview Resort</span>
+                          <span class="resort-location">VietNam</span>
+                        </div>
+                      </div>
+                      <span class="badge badge-primary badge-pill">$187/day</span>
+                    </li>
+                  </ul>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+  // Handle month navigation (if necessary)
+  $("#prev-month").on("click", function () {
+    // Logic to go to the previous month
+  });
+
+  $("#next-month").on("click", function () {
+    // Logic to go to the next month
+  });
+
+  // Handle date selection
+  $(".table td").on("click", function () {
+    $(".table td").removeClass("selected");
+    $(this).addClass("selected");
+  });
+});
+//Calender//
+
+document.addEventListener("DOMContentLoaded", function () {
+  const monthYearSelect = document.getElementById("month-year");
+  const calendarBody = document.getElementById("calendar-body");
+  const today = new Date();
+  let currentMonth = today.getMonth();
+  let currentYear = today.getFullYear();
+
+  function generateCalendar(month, year) {
+    const firstDay = new Date(year, month).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    calendarBody.innerHTML = "";
+
+    let date = 1;
+    for (let i = 0; i < 6; i++) {
+      let row = document.createElement("tr");
+      for (let j = 0; j < 7; j++) {
+        let cell = document.createElement("td");
+        if (i === 0 && j < (firstDay === 0 ? 6 : firstDay - 1)) {
+          cell.appendChild(document.createTextNode(""));
+        } else if (date > daysInMonth) {
+          break;
+        } else {
+          cell.appendChild(document.createTextNode(date));
+          if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+            cell.classList.add("selected");
+          }
+          date++;
+        }
+        row.appendChild(cell);
+      }
+      calendarBody.appendChild(row);
+      if (date > daysInMonth) break;
+    }
+  }
+
+  function populateMonthYearSelect() {
+    monthYearSelect.innerHTML = "";
+    for (let i = 2022; i <= 2024; i++) {
+      for (let j = 0; j < 12; j++) {
+        let option = document.createElement("option");
+        option.value = `${j}-${i}`;
+        option.text = new Date(i, j).toLocaleString("en-US", { month: "long", year: "numeric" });
+        if (i === currentYear && j === currentMonth) {
+          option.selected = true;
+        }
+        monthYearSelect.appendChild(option);
+      }
+    }
+  }
+
+  monthYearSelect.addEventListener("change", function () {
+    const [selectedMonth, selectedYear] = this.value.split("-");
+    generateCalendar(parseInt(selectedMonth), parseInt(selectedYear));
+  });
+
+  populateMonthYearSelect();
+  generateCalendar(currentMonth, currentYear);
+});
+    </script>
+    <script src="../../static/js/script.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/99cbdec5b3.js" crossorigin="anonymous"></script>
+  </body>
+</html>
