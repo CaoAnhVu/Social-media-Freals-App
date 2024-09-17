@@ -1,7 +1,6 @@
-import { currentUser } from "@clerk/nextjs";
-
+"use client";
+import { currentUser } from "@clerk/nextjs/server";
 import UserCard from "../cards/UserCard";
-
 import { fetchCommunities } from "@/lib/actions/community.actions";
 import { fetchUsers } from "@/lib/actions/user.actions";
 
