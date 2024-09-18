@@ -2,7 +2,7 @@ import Image from "next/image";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-import { ProfileTabs } from "@/constants/;
+import { profileTabs } from "@/constants";
 
 import FrealsTab from "@/components/shared/FrealsTab";
 import ProfileHeader from "@/components/shared/ProfileHeader";
