@@ -48,30 +48,39 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   });
 
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
-    const blob = values.profile_photo;
+    try {
+      const blob = values.profile_photo;
+      const hasImageChanged = isBase64Image(blob);
 
-    const hasImageChanged = isBase64Image(blob);
-    if (hasImageChanged) {
-      const imgRes = await startUpload(files);
+      if (hasImageChanged) {
+        const imgRes = await startUpload(files);
 
-      if (imgRes && imgRes[0].fileUrl) {
-        values.profile_photo = imgRes[0].fileUrl;
+        if (imgRes && imgRes[0].url) {
+          values.profile_photo = imgRes[0].url;
+        }
       }
-    }
 
-    await updateUser({
-      name: values.name,
-      path: pathname,
-      username: values.username,
-      userId: user.id,
-      bio: values.bio,
-      image: values.profile_photo,
-    });
+      await updateUser({
+        name: values.name,
+        path: pathname,
+        username: values.username,
+        userId: user.id,
+        bio: values.bio,
+        image: values.profile_photo,
+      });
 
-    if (pathname === "/profile/edit") {
-      router.back();
-    } else {
-      router.push("/");
+      // Thông báo cập nhật thành công
+      alert("Profile updated successfully!");
+
+      if (pathname === "/profile/edit") {
+        router.back();
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      // Thông báo lỗi cho người dùng
+      alert("Failed to update profile. Please try again.");
     }
   };
 
