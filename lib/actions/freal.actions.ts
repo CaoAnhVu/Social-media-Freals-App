@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { connectToDB } from "../mongoose";
 
 import User from "../models/user.model";
-import Thread from "../models/freal.model";
+import Freal from "../models/freal.model";
 import Community from "../models/community.model";
 
 export async function fetchPosts(pageNumber = 1, pageSize = 20) {
@@ -14,8 +14,8 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   // Calculate the number of posts to skip based on the page number and page size.
   const skipAmount = (pageNumber - 1) * pageSize;
 
-  // Create a query to fetch the posts that have no parent (top-level threads) (a thread that is not a comment/reply).
-  const postsQuery = Thread.find({ parentId: { $in: [null, undefined] } })
+  // Create a query to fetch the posts that have no parent (top-level Freals) (a Freal that is not a comment/reply).
+  const postsQuery = Freal.find({ parentId: { $in: [null, undefined] } })
     .sort({ createdAt: "desc" })
     .skip(skipAmount)
     .limit(pageSize)
@@ -36,8 +36,8 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
       },
     });
 
-  // Count the total number of top-level posts (threads) i.e., threads that are not comments.
-  const totalPostsCount = await Thread.countDocuments({
+  // Count the total number of top-level posts (freals) i.e., freals that are not comments.
+  const totalPostsCount = await Freal.countDocuments({
     parentId: { $in: [null, undefined] },
   }); // Get the total count of posts
 
@@ -55,13 +55,13 @@ interface Params {
   path: string;
 }
 
-export async function createThread({ text, author, communityId, path }: Params) {
+export async function createFreal({ text, author, communityId, path }: Params) {
   try {
     connectToDB();
 
     const communityIdObject = await Community.findOne({ id: communityId }, { _id: 1 });
 
-    const createdThread = await Thread.create({
+    const createdFreal = await Freal.create({
       text,
       author,
       community: communityIdObject, // Assign communityId if provided, or leave it null for personal account
@@ -69,86 +69,86 @@ export async function createThread({ text, author, communityId, path }: Params) 
 
     // Update User model
     await User.findByIdAndUpdate(author, {
-      $push: { threads: createdThread._id },
+      $push: { freals: createdFreal._id },
     });
 
     if (communityIdObject) {
       // Update Community model
       await Community.findByIdAndUpdate(communityIdObject, {
-        $push: { threads: createdThread._id },
+        $push: { freals: createdFreal._id },
       });
     }
 
     revalidatePath(path);
   } catch (error: any) {
-    throw new Error(`Failed to create thread: ${error.message}`);
+    throw new Error(`Failed to create freal: ${error.message}`);
   }
 }
 
-async function fetchAllChildThreads(threadId: string): Promise<any[]> {
-  const childThreads = await Thread.find({ parentId: threadId });
+async function fetchAllChildFreals(frealId: string): Promise<any[]> {
+  const childFreals = await Freal.find({ parentId: frealId });
 
-  const descendantThreads = [];
-  for (const childThread of childThreads) {
-    const descendants = await fetchAllChildThreads(childThread._id);
-    descendantThreads.push(childThread, ...descendants);
+  const descendantFreals = [];
+  for (const childFreal of childFreals) {
+    const descendants = await fetchAllChildFreals(childFreal._id);
+    descendantFreals.push(childFreal, ...descendants);
   }
 
-  return descendantThreads;
+  return descendantFreals;
 }
 
-export async function deleteThread(id: string, path: string): Promise<void> {
+export async function deleteFreal(id: string, path: string): Promise<void> {
   try {
     connectToDB();
 
-    // Find the thread to be deleted (the main thread)
-    const mainThread = await Thread.findById(id).populate("author community");
+    // Find the freal to be deleted (the main freal)
+    const mainFreal = await Freal.findById(id).populate("author community");
 
-    if (!mainThread) {
-      throw new Error("Thread not found");
+    if (!mainFreal) {
+      throw new Error("Freal not found");
     }
 
-    // Fetch all child threads and their descendants recursively
-    const descendantThreads = await fetchAllChildThreads(id);
+    // Fetch all child freals and their descendants recursively
+    const descendantFreals = await fetchAllChildFreals(id);
 
-    // Get all descendant thread IDs including the main thread ID and child thread IDs
-    const descendantThreadIds = [id, ...descendantThreads.map((thread) => thread._id)];
+    // Get all descendant freal IDs including the main freal ID and child freal IDs
+    const descendantFrealIds = [id, ...descendantFreals.map((freal) => freal._id)];
 
     // Extract the authorIds and communityIds to update User and Community models respectively
     const uniqueAuthorIds = new Set(
       [
-        ...descendantThreads.map((thread) => thread.author?._id?.toString()), // Use optional chaining to handle possible undefined values
-        mainThread.author?._id?.toString(),
+        ...descendantFreals.map((freal) => freal.author?._id?.toString()), // Use optional chaining to handle possible undefined values
+        mainFreal.author?._id?.toString(),
       ].filter((id) => id !== undefined)
     );
 
     const uniqueCommunityIds = new Set(
       [
-        ...descendantThreads.map((thread) => thread.community?._id?.toString()), // Use optional chaining to handle possible undefined values
-        mainThread.community?._id?.toString(),
+        ...descendantFreals.map((freal) => freal.community?._id?.toString()), // Use optional chaining to handle possible undefined values
+        mainFreal.community?._id?.toString(),
       ].filter((id) => id !== undefined)
     );
 
-    // Recursively delete child threads and their descendants
-    await Thread.deleteMany({ _id: { $in: descendantThreadIds } });
+    // Recursively delete child Freals and their descendants
+    await Freal.deleteMany({ _id: { $in: descendantFrealIds } });
 
     // Update User model
-    await User.updateMany({ _id: { $in: Array.from(uniqueAuthorIds) } }, { $pull: { threads: { $in: descendantThreadIds } } });
+    await User.updateMany({ _id: { $in: Array.from(uniqueAuthorIds) } }, { $pull: { feals: { $in: descendantFrealIds } } });
 
     // Update Community model
-    await Community.updateMany({ _id: { $in: Array.from(uniqueCommunityIds) } }, { $pull: { threads: { $in: descendantThreadIds } } });
+    await Community.updateMany({ _id: { $in: Array.from(uniqueCommunityIds) } }, { $pull: { freals: { $in: descendantFrealIds } } });
 
     revalidatePath(path);
   } catch (error: any) {
-    throw new Error(`Failed to delete thread: ${error.message}`);
+    throw new Error(`Failed to delete freal: ${error.message}`);
   }
 }
 
-export async function fetchThreadById(threadId: string) {
+export async function fetchFrealById(frealId: string) {
   connectToDB();
 
   try {
-    const thread = await Thread.findById(threadId)
+    const freal = await Freal.findById(frealId)
       .populate({
         path: "author",
         model: User,
@@ -169,7 +169,7 @@ export async function fetchThreadById(threadId: string) {
           },
           {
             path: "children", // Populate the children field within children
-            model: Thread, // The model of the nested children (assuming it's the same "Thread" model)
+            model: Freal, // The model of the nested children (assuming it's the same "Freal" model)
             populate: {
               path: "author", // Populate the author field within nested children
               model: User,
@@ -180,39 +180,39 @@ export async function fetchThreadById(threadId: string) {
       })
       .exec();
 
-    return thread;
+    return freal;
   } catch (err) {
-    console.error("Error while fetching thread:", err);
-    throw new Error("Unable to fetch thread");
+    console.error("Error while fetching freal:", err);
+    throw new Error("Unable to fetch freal");
   }
 }
 
-export async function addCommentToThread(threadId: string, commentText: string, userId: string, path: string) {
+export async function addCommentToFreal(frealId: string, commentText: string, userId: string, path: string) {
   connectToDB();
 
   try {
-    // Find the original thread by its ID
-    const originalThread = await Thread.findById(threadId);
+    // Find the original freal by its ID
+    const originalFreal = await Freal.findById(frealId);
 
-    if (!originalThread) {
-      throw new Error("Thread not found");
+    if (!originalFreal) {
+      throw new Error("Freal not found");
     }
 
-    // Create the new comment thread
-    const commentThread = new Thread({
+    // Create the new comment freal
+    const commentFreal = new Freal({
       text: commentText,
       author: userId,
-      parentId: threadId, // Set the parentId to the original thread's ID
+      parentId: frealId, // Set the parentId to the original freal's ID
     });
 
-    // Save the comment thread to the database
-    const savedCommentThread = await commentThread.save();
+    // Save the comment freal to the database
+    const savedCommentFreal = await commentFreal.save();
 
-    // Add the comment thread's ID to the original thread's children array
-    originalThread.children.push(savedCommentThread._id);
+    // Add the comment Freal's ID to the original Freal's children array
+    originalFreal.children.push(savedCommentFreal._id);
 
-    // Save the updated original thread to the database
-    await originalThread.save();
+    // Save the updated original Freal to the database
+    await originalFreal.save();
 
     revalidatePath(path);
   } catch (err) {
