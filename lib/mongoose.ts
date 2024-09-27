@@ -1,14 +1,13 @@
 import mongoose from "mongoose";
 
-let isConnected = false; // Variable to track the connection status
+let isConnected = false; // Biến theo dõi trạng thái kết nối
 
 export const connectToDB = async () => {
-  // Set strict query mode for Mongoose to prevent unknown field queries.
+  // Đặt chế độ truy vấn cho Mongoose để ngăn các truy vấn trường không xác định.
   mongoose.set("strictQuery", true);
 
   if (!process.env.MONGODB_URL) return console.log("Missing MongoDB URL");
 
-  // If the connection is already established, return without creating a new connection.
   if (isConnected) {
     console.log("MongoDB connection already established");
     return;
@@ -17,7 +16,7 @@ export const connectToDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URL);
 
-    isConnected = true; // Set the connection status to true
+    isConnected = true; // Đặt trạng thái kết nối thành true
     console.log("MongoDB connected");
   } catch (error) {
     console.log(error);
