@@ -47,40 +47,67 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     },
   });
 
+  // const onSubmit = async (values: z.infer<typeof UserValidation>) => {
+  //   try {
+  //     const blob = values.profile_photo;
+  //     const hasImageChanged = isBase64Image(blob);
+
+  //     if (hasImageChanged) {
+  //       const imgRes = await startUpload(files);
+
+  //       if (imgRes && imgRes[0].url) {
+  //         values.profile_photo = imgRes[0].url;
+  //       }
+  //     }
+
+  //     await updateUser({
+  //       name: values.name,
+  //       path: pathname,
+  //       username: values.username,
+  //       userId: user.id,
+  //       bio: values.bio,
+  //       image: values.profile_photo,
+  //     });
+
+  //     // Thông báo cập nhật thành công
+  //     alert("Profile updated successfully!");
+
+  //     if (pathname === "/profile/edit") {
+  //       router.back();
+  //     } else {
+  //       router.push("/");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating profile:", error);
+  //     // Thông báo lỗi cho người dùng
+  //     alert("Failed to update profile. Please try again.");
+  //   }
+  // };
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
-    try {
-      const blob = values.profile_photo;
-      const hasImageChanged = isBase64Image(blob);
+    const blob = values.profile_photo;
 
-      if (hasImageChanged) {
-        const imgRes = await startUpload(files);
+    const hasImageChanged = isBase64Image(blob);
+    if (hasImageChanged) {
+      const imgRes = await startUpload(files);
 
-        if (imgRes && imgRes[0].url) {
-          values.profile_photo = imgRes[0].url;
-        }
+      if (imgRes && imgRes[0].url) {
+        values.profile_photo = imgRes[0].url;
       }
+    }
 
-      await updateUser({
-        name: values.name,
-        path: pathname,
-        username: values.username,
-        userId: user.id,
-        bio: values.bio,
-        image: values.profile_photo,
-      });
+    await updateUser({
+      name: values.name,
+      path: pathname,
+      username: values.username,
+      userId: user.id,
+      bio: values.bio,
+      image: values.profile_photo,
+    });
 
-      // Thông báo cập nhật thành công
-      alert("Profile updated successfully!");
-
-      if (pathname === "/profile/edit") {
-        router.back();
-      } else {
-        router.push("/");
-      }
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      // Thông báo lỗi cho người dùng
-      alert("Failed to update profile. Please try again.");
+    if (pathname === "/profile/edit") {
+      router.back();
+    } else {
+      router.push("/");
     }
   };
 
@@ -114,7 +141,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
             <FormItem className="flex items-center gap-4">
               <FormLabel className="account-form_image-label">
                 {field.value ? (
-                  <Image src={field.value} alt="profile_icon" width={96} height={96} priority className="rounded-full object-contain" />
+                  <Image src={field.value} alt="profile_icon" width={100} height={100} priority className="rounded-full object-contain" />
                 ) : (
                   <Image src="/assets/profile.svg" alt="profile_icon" width={24} height={24} className="object-contain" />
                 )}

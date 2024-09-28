@@ -1,12 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverActions: true,
     serverActions: {
-      bodySizeLimit: "2mb", // or any size you prefer
+      bodySizeLimit: "10mb", // Set the body size limit (e.g., 10 MB)
     },
-  },
-  experimental: {
     serverComponentsExternalPackages: ["mongoose"],
   },
   eslint: {
@@ -31,6 +28,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "utfs.io", // Add this line to allow utfs.io images
       },
     ],
   },
