@@ -101,17 +101,17 @@ export async function deleteFreal(id: string, path: string): Promise<void> {
   try {
     connectToDB();
 
-    // Find the freal to be deleted (the main freal)
+    // Find the Freal to be deleted (the main Freal)
     const mainFreal = await Freal.findById(id).populate("author community");
 
     if (!mainFreal) {
       throw new Error("Freal not found");
     }
 
-    // Fetch all child freals and their descendants recursively
+    // Fetch all child Freals and their descendants recursively
     const descendantFreals = await fetchAllChildFreals(id);
 
-    // Get all descendant freal IDs including the main freal ID and child freal IDs
+    // Get all descendant Freal IDs including the main Freal ID and child Freal IDs
     const descendantFrealIds = [id, ...descendantFreals.map((freal) => freal._id)];
 
     // Extract the authorIds and communityIds to update User and Community models respectively
@@ -133,7 +133,7 @@ export async function deleteFreal(id: string, path: string): Promise<void> {
     await Freal.deleteMany({ _id: { $in: descendantFrealIds } });
 
     // Update User model
-    await User.updateMany({ _id: { $in: Array.from(uniqueAuthorIds) } }, { $pull: { feals: { $in: descendantFrealIds } } });
+    await User.updateMany({ _id: { $in: Array.from(uniqueAuthorIds) } }, { $pull: { freals: { $in: descendantFrealIds } } });
 
     // Update Community model
     await Community.updateMany({ _id: { $in: Array.from(uniqueCommunityIds) } }, { $pull: { freals: { $in: descendantFrealIds } } });
@@ -191,21 +191,21 @@ export async function addCommentToFreal(frealId: string, commentText: string, us
   connectToDB();
 
   try {
-    // Find the original freal by its ID
+    // Find the original Freal by its ID
     const originalFreal = await Freal.findById(frealId);
 
     if (!originalFreal) {
       throw new Error("Freal not found");
     }
 
-    // Create the new comment freal
+    // Create the new comment Freal
     const commentFreal = new Freal({
       text: commentText,
       author: userId,
-      parentId: frealId, // Set the parentId to the original freal's ID
+      parentId: frealId, // Set the parentId to the original Freal's ID
     });
 
-    // Save the comment freal to the database
+    // Save the comment Freal to the database
     const savedCommentFreal = await commentFreal.save();
 
     // Add the comment Freal's ID to the original Freal's children array

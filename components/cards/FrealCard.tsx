@@ -71,7 +71,6 @@ function FrealCard({ id, currentUserId, parentId, content, author, community, cr
 
         <DeleteFreal frealId={JSON.stringify(id)} currentUserId={currentUserId} authorId={author.id} parentId={parentId} isComment={isComment} />
       </div>
-
       {!isComment && comments.length > 0 && (
         <div className="ml-1 mt-3 flex items-center gap-2">
           {comments.slice(0, 2).map((comment, index) => (
@@ -85,14 +84,12 @@ function FrealCard({ id, currentUserId, parentId, content, author, community, cr
           </Link>
         </div>
       )}
-
+      <p className="text-subtle-medium text-gray-1">
+        {formatDateString(createdAt)}
+        {/* {community && ` - ${community.name} Community`} */}
+      </p>
       {!isComment && community && (
         <Link href={`/communities/${community.id}`} className="mt-5 flex items-center">
-          <p className="text-subtle-medium text-gray-1">
-            {formatDateString(createdAt)}
-            {community && ` - ${community.name} Community`}
-          </p>
-
           <Image src={community.image} alt={community.name} width={14} height={14} className="ml-1 rounded-full object-cover" />
         </Link>
       )}

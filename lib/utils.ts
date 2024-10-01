@@ -14,13 +14,19 @@ export function isBase64Image(imageData: string) {
 
 // created by chatgpt
 export function formatDateString(dateString: string) {
+  // Kiểm tra xem dateString có hợp lệ không
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    console.error("Invalid date:", dateString);
+    return "Invalid date";
+  }
+
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",
     day: "numeric",
   };
 
-  const date = new Date(dateString);
   const formattedDate = date.toLocaleDateString(undefined, options);
 
   const time = date.toLocaleTimeString([], {

@@ -16,7 +16,7 @@ async function Page() {
     <>
       <h1 className="head-text">Create Freal</h1>
 
-      <PostFreal userId={userInfo._id} />
+      <PostFreal userId={userInfo.id} />
     </>
   );
 }
